@@ -61,6 +61,8 @@ app.post("/api/upload", upload.single("template"), async (req, res) => {
   }
 });
 
+const FONT_SIZE_MULTIPLIER = 8; // Define a constant for the font size multiplier
+
 app.post("/api/generate", async (req, res) => {
   try {
     const { templateFilename, data, positions } = req.body;
@@ -82,10 +84,16 @@ app.post("/api/generate", async (req, res) => {
       // Add text to the PDF based on positions
       Object.entries(positions).forEach(([key, position]) => {
         if (entry[key]) {
+          const adjustedFontSize = (position.fontSize || 12) * FONT_SIZE_MULTIPLIER; // Use the multiplier
+          const textWidth = entry[key].length * adjustedFontSize * 0.6; // Approximate width of a character
+
+          // Default to left alignment
+          const x = position.x * width; // Use x from positions
+          
           page.drawText(entry[key], {
-            x: position.x * width,
-            y: position.y * height,
-            size: (position.fontSize || 12) * 8,
+            x: x,
+            y: height * position.y,
+            size: adjustedFontSize,
             color: rgb(0, 0, 0),
           });
         }

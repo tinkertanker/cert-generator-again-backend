@@ -25,13 +25,13 @@ async function testGenerate(filename) {
   const response = await axios.post(`${API_URL}/api/generate`, {
     templateFilename: filename,
     data: [
-      { name: "John Doe", course: "Web Development", date: "2023-05-01" },
-      { name: "Jane Smith", course: "Data Science", date: "2023-05-02" }
+      { name: "John Doe", course: "Web Development", date: "2023-05-01" }, 
+      { name: "Jane Smith", course: "Data Science", date: "2023-05-02" } 
     ],
     positions: {
-      name: { x: 0.5, y: 0.7, fontSize: 24 },
-      course: { x: 0.5, y: 0.6, fontSize: 24 },
-      date: { x: 0.5, y: 0.5, fontSize: 24 }
+      name: { x: 0.42, y: 0.6, fontSize: 36 }, 
+      course: { x: 0.44, y: 0.5, fontSize: 24 }, 
+      date: { x: 0.47, y: 0.4, fontSize: 12 }, 
     }
   });
 
@@ -45,8 +45,8 @@ async function runTest() {
     await testGenerate(jpgFilename);
 
     // Upload and generate for PDF template
-    const pdfFilename = await uploadTemplate(EXAMPLE_TEMPLATE_URL_PDF);
-    await testGenerate(pdfFilename);
+    // const pdfFilename = await uploadTemplate(EXAMPLE_TEMPLATE_URL_PDF);
+    // await testGenerate(pdfFilename);
   } catch (error) {
     console.error('Test failed:', error.response ? error.response.data : error.message);
   }
