@@ -1,10 +1,15 @@
-const express = require("express");
-const multer = require("multer");
-const { PDFDocument, rgb, StandardFonts } = require("pdf-lib"); // Import StandardFonts
-const sharp = require("sharp");
-const fs = require("fs").promises;
-const path = require("path"); // Import path module
-const cors = require("cors");
+import express from "express";
+import multer from "multer";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib"; // Import StandardFonts
+import sharp from "sharp";
+import fs from "fs/promises"; // Use fs/promises for promises
+import path from "path"; // Import path module
+import cors from "cors";
+import { fileURLToPath } from 'url';
+
+// Define __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 3000;

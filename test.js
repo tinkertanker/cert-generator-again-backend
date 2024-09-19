@@ -1,6 +1,6 @@
-const axios = require('axios');
-const fs = require('fs');
-const FormData = require('form-data');
+import axios from 'axios';
+import fs from 'fs';
+import FormData from 'form-data';
 
 const API_URL = 'http://localhost:3000';
 const EXAMPLE_TEMPLATE_URL_JPG =
