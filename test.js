@@ -26,15 +26,25 @@ async function testGenerate(filename) {
     templateFilename: filename,
     data: [
       { 
-        name: { text: "John Doe", color: [0.7, 0.7, 0.7], bold: true }, // Light Gray, Bold
-        course: { text: "Web Development", color: [1, 0.5, 0.5] }, // Light Red
-        date: { text: "2023-05-01", color: [0.5, 0.5, 1] } // Light Blue
+        name: { text: "John Doe", color: [0.7, 0.7, 0.7], bold: true, font: 'Times' }, // Light Gray, Bold, Times
+        course: { text: "Web Development", color: [1, 0.5, 0.5], bold: true, oblique: true, font: 'Times' }, // Light Red, Bold Oblique, Times
+        date: { text: "2023-05-01", color: [0.5, 0.5, 1], font: 'Helvetica' } // Light Blue, Helvetica
       }, 
       { 
-        name: { text: "Jane Smith", color: [0.5, 1, 0.5] }, // Light Green
-        course: { text: "Data Science", color: [1, 0.8, 0.5], bold: true }, // Light Orange, Bold
-        date: { text: "2023-05-02", color: [0.7, 0.7, 0.7] } // Light Gray
-      } 
+        name: { text: "Jane Smith", color: [0.5, 1, 0.5], font: 'Courier' }, // Light Green, Courier
+        course: { text: "Data Science", color: [1, 0.8, 0.5], bold: true, font: 'Courier' }, // Light Orange, Bold Courier
+        date: { text: "2023-05-02", color: [0.7, 0.7, 0.7], oblique: true, font: 'Courier' } // Light Gray, Courier Oblique
+      },
+      { 
+        name: { text: "Alice Johnson", color: [1, 1, 0], bold: true, oblique: true, font: 'Times' }, // Yellow, Bold Oblique, Times
+        course: { text: "Graphic Design", color: [0, 0, 1], font: 'Helvetica' }, // Blue, Helvetica
+        date: { text: "2023-05-03", color: [0.5, 0, 0.5], bold: true, font: 'Helvetica' } // Purple, Bold Helvetica
+      },
+      { 
+        name: { text: "Bob Brown", color: [0, 1, 0], font: 'Courier' }, // Green, Courier
+        course: { text: "Machine Learning", color: [1, 0, 1], bold: true, oblique: true, font: 'Courier' }, // Magenta, Bold Oblique Courier
+        date: { text: "2023-05-04", color: [0, 0, 0], font: 'Times' } // Black, Times
+      }
     ],
     positions: {
       name: { x: 0.42, y: 0.6, fontSize: 36 }, 

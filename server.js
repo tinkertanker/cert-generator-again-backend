@@ -85,6 +85,16 @@ app.post("/api/generate", async (req, res) => {
       // Embed fonts for each individual PDF
       const helveticaFont = await pdf.embedFont(StandardFonts.Helvetica);
       const helveticaBoldFont = await pdf.embedFont(StandardFonts.HelveticaBold);
+      const helveticaObliqueFont = await pdf.embedFont(StandardFonts.HelveticaOblique); // Corrected to Embed Helvetica Oblique
+      const helveticaBoldObliqueFont = await pdf.embedFont(StandardFonts.HelveticaBoldOblique); // Embed Helvetica Bold Oblique
+      const timesFont = await pdf.embedFont(StandardFonts.TimesRoman); // Embed Times New Roman
+      const timesBoldFont = await pdf.embedFont(StandardFonts.TimesRomanBold); // Embed Times Bold
+      const timesObliqueFont = await pdf.embedFont(StandardFonts.TimesRomanItalic); // Corrected to Embed Times Oblique
+      const timesBoldObliqueFont = await pdf.embedFont(StandardFonts.TimesRomanBoldItalic); // Embed Times Bold Oblique
+      const courierFont = await pdf.embedFont(StandardFonts.Courier); // Embed Courier
+      const courierBoldFont = await pdf.embedFont(StandardFonts.CourierBold); // Embed Courier Bold
+      const courierObliqueFont = await pdf.embedFont(StandardFonts.CourierOblique); // Embed Courier Oblique
+      const courierBoldObliqueFont = await pdf.embedFont(StandardFonts.CourierBoldOblique); // Embed Courier Bold Oblique
 
       const page = pdf.getPages()[0];
       const { width, height } = page.getSize();
@@ -99,7 +109,28 @@ app.post("/api/generate", async (req, res) => {
           // Use color from entry or default to black
           const color = entry[key].color ? rgb(...entry[key].color) : rgb(0, 0, 0);
 
-          const font = entry[key].bold ? helveticaBoldFont : helveticaFont;
+          // Select font based on entry properties
+          let font;
+          switch (entry[key].font) {
+            case 'Times':
+              font = entry[key].bold 
+                ? (entry[key].oblique ? timesBoldObliqueFont : timesBoldFont) 
+                : (entry[key].oblique ? timesObliqueFont : timesFont);
+              break;
+            case 'Courier':
+              font = entry[key].bold 
+                ? (entry[key].oblique ? courierBoldObliqueFont : courierBoldFont) 
+                : (entry[key].oblique ? courierObliqueFont : courierFont);
+              break;
+            case 'Helvetica':
+              font = entry[key].bold 
+                ? (entry[key].oblique ? helveticaBoldObliqueFont : helveticaBoldFont) 
+                : (entry[key].oblique ? helveticaObliqueFont : helveticaFont);
+              break;
+            default:
+              console.warn(`Unknown font: ${entry[key].font}. Defaulting to Helvetica.`);
+              font = helveticaFont; // Default to Helvetica if unknown
+          }
 
           page.drawText(entry[key].text, {
             x: x,
