@@ -1,7 +1,6 @@
 import express from "express";
 import multer from "multer";
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib"; // Import StandardFonts
-import sharp from "sharp";
 import fs from "fs/promises"; // Use fs/promises for promises
 import path from "path"; // Import path module
 import cors from "cors";
