@@ -25,8 +25,16 @@ async function testGenerate(filename) {
   const response = await axios.post(`${API_URL}/api/generate`, {
     templateFilename: filename,
     data: [
-      { name: "John Doe", course: "Web Development", date: "2023-05-01" }, 
-      { name: "Jane Smith", course: "Data Science", date: "2023-05-02" } 
+      { 
+        name: { text: "John Doe", color: [0.7, 0.7, 0.7] }, // Light Gray
+        course: { text: "Web Development", color: [1, 0.5, 0.5] }, // Light Red
+        date: { text: "2023-05-01", color: [0.5, 0.5, 1] } // Light Blue
+      }, 
+      { 
+        name: { text: "Jane Smith", color: [0.5, 1, 0.5] }, // Light Green
+        course: { text: "Data Science", color: [1, 0.8, 0.5] }, // Light Orange
+        date: { text: "2023-05-02", color: [0.7, 0.7, 0.7] } // Light Gray
+      } 
     ],
     positions: {
       name: { x: 0.42, y: 0.6, fontSize: 36 }, 

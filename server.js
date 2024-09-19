@@ -90,11 +90,14 @@ app.post("/api/generate", async (req, res) => {
           // Default to left alignment
           const x = position.x * width; // Use x from positions
           
-          page.drawText(entry[key], {
+          // Use color from entry or default to black
+          const color = entry[key].color ? rgb(...entry[key].color) : rgb(0, 0, 0);
+
+          page.drawText(entry[key].text, {
             x: x,
             y: height * position.y,
             size: adjustedFontSize,
-            color: rgb(0, 0, 0),
+            color: color,
           });
         }
       });
