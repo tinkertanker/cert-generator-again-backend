@@ -1,6 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-const { PDFDocument, rgb } = require("pdf-lib");
+const { PDFDocument, rgb, StandardFonts } = require("pdf-lib"); // Import StandardFonts
 const sharp = require("sharp");
 const fs = require("fs").promises;
 const path = require("path"); // Import path module
@@ -78,29 +78,34 @@ app.post("/api/generate", async (req, res) => {
       const [templatePage] = await pdf.copyPages(pdfDoc, [0]);
       pdf.addPage(templatePage);
 
+      // Embed fonts for each individual PDF
+      const helveticaFont = await pdf.embedFont(StandardFonts.Helvetica);
+      const helveticaBoldFont = await pdf.embedFont(StandardFonts.HelveticaBold);
+
       const page = pdf.getPages()[0];
       const { width, height } = page.getSize();
 
       // Add text to the PDF based on positions
-      Object.entries(positions).forEach(([key, position]) => {
+      for (const [key, position] of Object.entries(positions)) {
         if (entry[key]) {
-          const adjustedFontSize = (position.fontSize || 12) * FONT_SIZE_MULTIPLIER; // Use the multiplier
-          const textWidth = entry[key].length * adjustedFontSize * 0.6; // Approximate width of a character
+          const adjustedFontSize = (position.fontSize || 12) * FONT_SIZE_MULTIPLIER;
 
-          // Default to left alignment
-          const x = position.x * width; // Use x from positions
+          const x = position.x * width;
           
           // Use color from entry or default to black
           const color = entry[key].color ? rgb(...entry[key].color) : rgb(0, 0, 0);
+
+          const font = entry[key].bold ? helveticaBoldFont : helveticaFont;
 
           page.drawText(entry[key].text, {
             x: x,
             y: height * position.y,
             size: adjustedFontSize,
             color: color,
+            font: font,
           });
         }
-      });
+      }
 
       return pdf.save();
     }));

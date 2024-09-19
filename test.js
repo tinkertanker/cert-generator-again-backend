@@ -26,13 +26,13 @@ async function testGenerate(filename) {
     templateFilename: filename,
     data: [
       { 
-        name: { text: "John Doe", color: [0.7, 0.7, 0.7] }, // Light Gray
+        name: { text: "John Doe", color: [0.7, 0.7, 0.7], bold: true }, // Light Gray, Bold
         course: { text: "Web Development", color: [1, 0.5, 0.5] }, // Light Red
         date: { text: "2023-05-01", color: [0.5, 0.5, 1] } // Light Blue
       }, 
       { 
         name: { text: "Jane Smith", color: [0.5, 1, 0.5] }, // Light Green
-        course: { text: "Data Science", color: [1, 0.8, 0.5] }, // Light Orange
+        course: { text: "Data Science", color: [1, 0.8, 0.5], bold: true }, // Light Orange, Bold
         date: { text: "2023-05-02", color: [0.7, 0.7, 0.7] } // Light Gray
       } 
     ],
